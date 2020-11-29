@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Info | Build with NodeJS and EJS</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <script
+      src="https://kit.fontawesome.com/6379843287.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="banner">
+      <div class="bannerContent">
+        <h1><i class="fas fa-map-marker-alt"></i></h1>
+        <div>
+          <h1>Ahmedabad</h1>
+          <p>City of</p>
+        </div>
+      </div>
+      <div class="detailWeather">
+        <div class="weatherDetails">
+          <div class="weatherImg">
+            <i class="fas fa-cloud-sun"></i>
+          </div>
+          <h1>
+            <%= weatherData.current.temp%><span><p>°C</p></span>
+          </h1>
+          <div class="separator"></div>
+          <h3>Ahmedabad<span>Gujarat</span></h3>
+        </div>
+        <div class="otherDetails">
+          <p>Feels Like: <%= feels_like%> °C</p>
+          <div class="detail-separator"></div>
+          <p>Humidity: <%= weatherData.current.humidity%></p>
+          <div class="detail-separator"></div>
+          <p>Wind Speed: <%= weatherData.current.wind_speed%> km/h</p>
+        </div>
+      </div>
+    </section>
+    <section class="forecastWeather">
+      <h3><span><%=weatherData.daily.length%> Days</span> Forecast</h3>
+      <div class="forecastContainer row">
+        <% for(i = 0; i < weatherData.daily.length ; i++){ %>
+        <div class="col forecastCard">
+          <div class="cardImg col-3">
+            <i class="fas fa-cloud-sun"></i>
+          </div>
+          <div class="dateNature col-4">
+            <p>
+              <%= new
+              Date((weatherData.daily[i].dt)*1000).toLocaleString("en-US",
+              {weekday: "long"})%>
+            </p>
+            <p><%= weatherData.daily[i].weather[0].main%></p>
+          </div>
+          <div class="minMaxTemp col-5">
+            <h3>
+              <%= Math.floor(weatherData.daily[i].temp.max)%>°C | <%=
+              Math.floor(weatherData.daily[i].temp.min)%>°C
+            </h3>
+          </div>
+        </div>
+        <%}%>
+      </div>
+    </section>
+
+    <div class="attribution">
+      <h3>
+        Developed by:<br />
+        <b style="color: #7768e5">Sandip Dhang</b> with
+        <i class="fas fa-heart" style="color: #7768e5"></i> <br />
+        by using NodeJS and EJS
+      </h3>
+    </div>
+  </body>
+</html>
